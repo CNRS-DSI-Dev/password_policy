@@ -15,8 +15,4 @@
 		<?php }?>
 
 	</ul>
-	<p>
-		<br/>
-		<?php p($l->t('An example of a compliant password would be:')); ?> <?php p($_['examplepass']); ?>
-	</p>
 </form>

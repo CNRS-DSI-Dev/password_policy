@@ -23,11 +23,6 @@ if(OC_Password_Policy::getSpecialChars())
 
 $tpl->assign('minlength', $minlength);
 
-$examplepass = genpass($minlength);
-
-$tpl->assign('examplepass',$examplepass);
-
-
 return $tpl->fetchPage();
 
 function genpass($minlength)
