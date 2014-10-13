@@ -1,0 +1,16 @@
+<?php $TRANSLATIONS = array(
+"Password Policy Enforcement" => "Stratégie de choix du mot de passe",
+"Minimum Password Length" => "Longueur minimum du mot de passe",
+"Require Mixed Case" => "Nécessite majuscules ET minuscules",
+"Require Numbers" => "Nécessite des nombres",
+"Require Special Characters" => "Nécessite des caractères particuliers",
+"Special Characters List" => "Liste des caractères particuliers",
+"The following password restrictions are currently in place:" => "Les contraintes sur le choix d'un mot de passe sont les suivantes :",
+"All passwords are required to be at least %d characters in length and;" => "Chaque mot de passe doit contenir au moins %d caractères et ",
+"Must contain UPPER and lower case characters" => "Doit contenir des majuscules ET de minuscules",
+"Must contain numbers" => "Doit contenir des nombres",
+"Must contain special characters: %s" => "Doit contenir le(s) caractère(s) particulier(s) suivant(s) : %s",
+"An example of a compliant password would be:" => "Exemple de mot de passe convenable : ",
+"Policy saved." => "Stratégie sauvegardée.",
+"Error saving policy." => "Erreur lors de la sauvegarde de la stratégie.",
+);

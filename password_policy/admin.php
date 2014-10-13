@@ -6,7 +6,6 @@ OC_Util::checkAdminUser();
 \OCP\Util::addScript('password_policy', 'password_policy_admin');
 
 $tpl = new OCP\Template("password_policy", "password_policy_admin");
-$tpl->assign('msg', 'Password Policy Enforcement');
 
 $minlength = OC_Password_Policy::getMinLength();
 $mixedcase = OC_Password_Policy::getMixedCase();
