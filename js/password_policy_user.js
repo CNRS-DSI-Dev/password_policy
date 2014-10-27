@@ -6,22 +6,22 @@ $(document).ready(function() {
 });
 
 function check_password_policy(e) {
-	
+
 	var password = $('#pass2').val();
-	
+
 	$.ajax({
 		type: 'POST',
 		url: OC.filePath('password_policy', 'ajax', 'testPassword.php'),
 		data: {password: password},
 		success: function(data){
 			if (data.status == 'success') {
-					
-				return true;	
+
+				return true;
 			}
 			else {
-				$('#passworderror').html('Password does not comply with the Password Policy.');
+				$('#passworderror').html(t('password_policy', 'Password does not comply with the Password Policy.'));
 				$('#passworderror').show();
-				
+
 				e.stopImmediatePropagation();
 				e.stopPropagation();
 				e.preventDefault();

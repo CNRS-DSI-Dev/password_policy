@@ -13,4 +13,5 @@
 "An example of a compliant password would be:" => "Exemple de mot de passe convenable : ",
 "Policy saved." => "Stratégie sauvegardée.",
 "Error saving policy." => "Erreur lors de la sauvegarde de la stratégie.",
+"Password does not comply with the Password Policy." => "Le mot de passe doit respecter certaines contraines (voir ci-dessous).",
 );
