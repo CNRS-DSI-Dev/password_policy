@@ -6,7 +6,7 @@ class OC_Password_Policy {
 		//admin can set any password
 		if(OC_User::isAdminUser(OC_User::getUser()))
 		{
-			return true;
+			// return true;
 		}
 
 		//test length
