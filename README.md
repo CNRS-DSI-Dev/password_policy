@@ -1,6 +1,6 @@
 # Password Policy
 
-Owncloud 7 app that allow administrator to enforce password policy.
+Owncloud 9 app that allow administrator to enforce password policy.
 
 The policy may require minimum length, mixed case and specials characters in password.
 
