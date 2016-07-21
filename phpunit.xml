@@ -1,0 +1,7 @@
+<phpunit bootstrap="tests/bootstrap.php" colors="true">
+<testsuites>
+    <testsuite name="unit">
+        <file>tests/unit/PolicyTest.php</file>
+    </testsuite>
+</testsuites>
+</phpunit>
