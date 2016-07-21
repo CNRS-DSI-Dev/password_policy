@@ -15,14 +15,16 @@
 
 $tpl = new OCP\Template("password_policy", "settings-personal");
 
-$minlength = \OCA\PasswordPolicyEnforcement\Policy::getMinLength();
-$mixedcase = \OCA\PasswordPolicyEnforcement\Policy::getMixedCase();
+$policy = new \OCA\PasswordPolicyEnforcement\Policy;
+
+$minlength = $policy->getMinLength();
+$mixedcase = $policy->getMixedCase();
 $mixedcase = ($mixedcase==='yes')?true:false;
-$numbers = \OCA\PasswordPolicyEnforcement\Policy::getNumbers();
+$numbers = $policy->getNumbers();
 $numbers = ($numbers==='yes')?true:false;
-$specialcharacters = \OCA\PasswordPolicyEnforcement\Policy::getSpecialChars();
+$specialcharacters = $policy->getSpecialChars();
 $specialcharacters = ($specialcharacters==='yes')?true:false;
-$specialcharslist = \OCA\PasswordPolicyEnforcement\Policy::getSpecialCharsList();
+$specialcharslist = $policy->getSpecialCharsList();
 
 $tpl->assign('numbers', $numbers);
 $tpl->assign('minlength', $minlength);

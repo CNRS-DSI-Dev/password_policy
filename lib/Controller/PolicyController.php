@@ -18,12 +18,13 @@ use OCP\AppFramework\Http;
 
 class PolicyController extends Controller {
 
-
+    protected $policy;
     private $userId;
 
-    public function __construct($AppName, IRequest $request, $UserId)
+    public function __construct($AppName, IRequest $request, \OCA\PasswordPolicyEnforcement\Policy $policy, $UserId)
     {
         parent::__construct($AppName, $request);
+        $this->policy = $policy;
         $this->userId = $UserId;
     }
 
@@ -33,7 +34,7 @@ class PolicyController extends Controller {
      */
     public function setPassword($password='')
     {
-        if(empty($password) or !\OCA\PasswordPolicyEnforcement\Policy::testPassword($password)) {
+        if(empty($password) or !$this->policy->testPassword($password)) {
             return new DataResponse([
                 'msg' => 'Password does not comply with the Password Policy.',
                 'status' => 'error',

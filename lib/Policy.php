@@ -28,7 +28,7 @@ class Policy
         $this->l = $l;
     }
 
-    public static function testPassword($password)
+    public function testPassword($password)
     {
         //admin can set any password
         if(\OC_User::isAdminUser(\OCP\User::getUser())) {
@@ -36,27 +36,27 @@ class Policy
         }
 
         //test length
-        if(strlen($password)< self::getMinLength()) {
+        if(strlen($password)< $this->getMinLength()) {
             return false;
         }
 
         //test special characters
-        if(self::getSpecialChars() === 'yes') {
-            $special_chars = self::getSpecialCharsList();
+        if($this->getSpecialChars() === 'yes') {
+            $special_chars = $this->getSpecialCharsList();
 
-            if(!self::checkSpecialChars($special_chars,$password)) {
+            if(!$this->checkSpecialChars($special_chars,$password)) {
                 return false;
             }
         }
 
         //test Mixed case
-        if(self::getMixedCase() === 'yes') {
-            if(!self::checkMixedCase($password))
+        if($this->getMixedCase() === 'yes') {
+            if(!$this->checkMixedCase($password))
                 return false;
         }
 
         //test Numbers
-        if(self::getNumbers() === 'yes') {
+        if($this->getNumbers() === 'yes') {
             if(preg_match("/[0-9]/",$password)!=1)
                 return false;
         }
@@ -64,58 +64,58 @@ class Policy
         return true;
     }
 
-    public static function setMinLength($limit)
+    public function setMinLength($limit)
     {
         $result = \OCP\Config::setAppValue(self::AppName, 'min_length', $limit);
     }
 
-    public static function setSpecialCharsList($list)
+    public function setSpecialCharsList($list)
     {
         $result = \OCP\Config::setAppValue(self::AppName, 'specialcharslist', $list);
     }
 
-    public static function setSpecialChars($specialcharsrequired)
+    public function setSpecialChars($specialcharsrequired)
     {
         $result = \OCP\Config::setAppValue(self::AppName, 'specialcharacters', $specialcharsrequired);
     }
 
-    public static function setMixedCase($mixedcase)
+    public function setMixedCase($mixedcase)
     {
         $result = \OCP\Config::setAppValue(self::AppName, 'mixedcase', $mixedcase);
     }
 
-    public static function setNumbers($numbers)
+    public function setNumbers($numbers)
     {
         $result = \OCP\Config::setAppValue(self::AppName, 'numbers', $numbers);
     }
 
-    public static function getMinLength()
+    public function getMinLength()
     {
         return \OCP\Config::getAppValue(self::AppName, 'min_length', 15);
     }
 
-    public static function getSpecialCharsList()
+    public function getSpecialCharsList()
     {
         return \OCP\Config::getAppValue(self::AppName, 'specialcharslist', '');
 
     }
 
-    public static function getSpecialChars()
+    public function getSpecialChars()
     {
         return \OCP\Config::getAppValue(self::AppName, 'specialcharacters', 'no');
     }
 
-    public static function getMixedCase()
+    public function getMixedCase()
     {
         return \OCP\Config::getAppValue(self::AppName, 'mixedcase', 'yes');
     }
 
-    public static function getNumbers()
+    public function getNumbers()
     {
         return \OCP\Config::getAppValue(self::AppName, 'numbers', 'yes');
     }
 
-    public static function checkSpecialChars($special, $input)
+    public function checkSpecialChars($special, $input)
     {
             for($i=0;$i<strlen($special);$i++)
             {
@@ -130,7 +130,7 @@ class Policy
             return false;
     }
 
-    public static function checkMixedCase($input)
+    public function checkMixedCase($input)
     {
             if(strtoupper($input) == $input || strtolower($input) == $input) {
                 return false;
