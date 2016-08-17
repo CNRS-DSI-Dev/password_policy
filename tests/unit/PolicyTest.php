@@ -9,7 +9,7 @@
  * @copyright Patrick Paysant / CNRS 2016
  */
 
-namespace OCA\PasswordPolicyEnforcement\Controller;
+namespace OCA\PasswordPolicyEnforcement\Tests;
 
 use PHPUnit_Framework_TestCase;
 
@@ -20,31 +20,50 @@ use OCP\AppFramework\Http\TemplateResponse;
 class PolicyTest extends \Test\TestCase
 {
     const AppName = "password_policy";
-    public $mockPolicy;
+    public $mockConfig;
 
     public function setUp()
     {
-        $this->mockPolicy = $this->getMockBuilder("\OCA\PasswordPolicyEnforcement\Policy")
-            ->disableOriginalConstructor()
-            ->setMethods(['getMinLength', 'getMixedCase', 'getSpecialChars', 'getSpecialCharsList'])
+        $map = [
+            [self::AppName, 'min_length', 15, 4],
+            [self::AppName, 'mixedcase', 'yes', 'yes'],
+            [self::AppName, 'numbers', 'yes', 'no'],
+            [self::AppName, 'specialcharacters', 'no', 'yes'],
+            [self::AppName, 'specialcharslist', '', 'ABC'],
+        ];
+
+        $this->mockConfig = $this->getMockBuilder('\OCP\IConfig')
             ->getMock();
+
+        $this->mockConfig->method('getAppValue')
+            ->will($this->returnValueMap($map));
+    }
+
+    public function tearDown()
+    {
+        unset($this->mockConfig);
+    }
+
+    public function testPasswordPolicy()
+    {
+        $policy = new \OCA\PasswordPolicyEnforcement\Policy;
+        $policy->setConfig($this->mockConfig);
+
+        $this->assertEquals(4, $policy->getMinLength());
+        $this->assertEquals('yes', $policy->getSpecialChars());
+        $this->assertEquals('ABC', $policy->getSpecialCharsList());
+        $this->assertEquals('yes', $policy->getMixedCase());
+        $this->assertEquals('no', $policy->getNumbers());
     }
 
     public function testPassword()
     {
-        $this->mockPolicy->method('getMinLength')
-            ->willReturn(4);
-        $this->mockPolicy->method('getMixedCase')
-            ->willReturn('yes');
-        $this->mockPolicy->method('getSpecialChars')
-            ->willReturn('yes');
-        $this->mockPolicy->method('getSpecialCharsList')
-            ->willReturn('ABC');
+        $policy = new \OCA\PasswordPolicyEnforcement\Policy;
+        $policy->setConfig($this->mockConfig);
 
-        $this->assertTrue($this->mockPolicy->testPassword('AbCd'), 'Correct password');
-
-        $this->assertFalse($this->mockPolicy->testPassword('abc'), 'Not enough characters');
-        $this->assertFalse($this->mockPolicy->testPassword('abcd', 'Not mixed cased'));
-        $this->assertFalse($this->mockPolicy->testPassword('abcD', 'At least one special char should be used'));
+        $this->assertTrue($policy->testPassword('AbCd'), 'Correct password');
+        $this->assertFalse($policy->testPassword('abc'), 'Not enough characters');
+        $this->assertFalse($policy->testPassword('abcd', 'Not mixed cased'));
+        $this->assertFalse($policy->testPassword('abcD', 'At least one special char should be used'));
     }
 }

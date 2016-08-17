@@ -20,12 +20,26 @@ class Policy
     /** @var IL10N */
     protected $l;
 
+    /** @var @var \OCP\Config */
+    protected $config = null;
+
     /**
      * @param IL10N $l
      */
     public function __construct(IL10N $l)
     {
         $this->l = $l;
+        if (is_null($this->config)) {
+            $this->setConfig();
+        }
+    }
+
+    public function setConfig(\OCP\Config $config = null)
+    {
+        $this->config = $config;
+        if (is_null($this->config)) {
+            $this->config = new \OCP\Config;
+        }
     }
 
     public function testPassword($password)
@@ -66,53 +80,52 @@ class Policy
 
     public function setMinLength($limit)
     {
-        $result = \OCP\Config::setAppValue(self::AppName, 'min_length', $limit);
+        $result = $this->config->setAppValue(self::AppName, 'min_length', $limit);
     }
 
     public function setSpecialCharsList($list)
     {
-        $result = \OCP\Config::setAppValue(self::AppName, 'specialcharslist', $list);
+        $result = $this->config->setAppValue(self::AppName, 'specialcharslist', $list);
     }
 
     public function setSpecialChars($specialcharsrequired)
     {
-        $result = \OCP\Config::setAppValue(self::AppName, 'specialcharacters', $specialcharsrequired);
+        $result = $this->config->setAppValue(self::AppName, 'specialcharacters', $specialcharsrequired);
     }
 
     public function setMixedCase($mixedcase)
     {
-        $result = \OCP\Config::setAppValue(self::AppName, 'mixedcase', $mixedcase);
+        $result = $this->config->setAppValue(self::AppName, 'mixedcase', $mixedcase);
     }
 
     public function setNumbers($numbers)
     {
-        $result = \OCP\Config::setAppValue(self::AppName, 'numbers', $numbers);
+        $result = $this->config->setAppValue(self::AppName, 'numbers', $numbers);
     }
 
     public function getMinLength()
     {
-        return \OCP\Config::getAppValue(self::AppName, 'min_length', 15);
+        return $this->config->getAppValue(self::AppName, 'min_length', 15);
     }
 
     public function getSpecialCharsList()
     {
-        return \OCP\Config::getAppValue(self::AppName, 'specialcharslist', '');
-
+        return $this->config->getAppValue(self::AppName, 'specialcharslist', '');
     }
 
     public function getSpecialChars()
     {
-        return \OCP\Config::getAppValue(self::AppName, 'specialcharacters', 'no');
+        return $this->config->getAppValue(self::AppName, 'specialcharacters', 'no');
     }
 
     public function getMixedCase()
     {
-        return \OCP\Config::getAppValue(self::AppName, 'mixedcase', 'yes');
+        return $this->config->getAppValue(self::AppName, 'mixedcase', 'yes');
     }
 
     public function getNumbers()
     {
-        return \OCP\Config::getAppValue(self::AppName, 'numbers', 'yes');
+        return $this->config->getAppValue(self::AppName, 'numbers', 'yes');
     }
 
     public function checkSpecialChars($special, $input)
