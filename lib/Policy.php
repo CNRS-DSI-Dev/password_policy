@@ -34,7 +34,7 @@ class Policy
         }
     }
 
-    public function setConfig(\OCP\Config $config = null)
+    public function setConfig(\OCP\IConfig $config = null)
     {
         $this->config = $config;
         if (is_null($this->config)) {

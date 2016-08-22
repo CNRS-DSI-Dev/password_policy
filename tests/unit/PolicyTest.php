@@ -46,7 +46,7 @@ class PolicyTest extends \Test\TestCase
 
     public function testPasswordPolicy()
     {
-        $policy = new \OCA\PasswordPolicyEnforcement\Policy;
+        $policy = new \OCA\PasswordPolicyEnforcement\Policy($this->getMock('OCP\IL10N'));
         $policy->setConfig($this->mockConfig);
 
         $this->assertEquals(4, $policy->getMinLength());
@@ -58,7 +58,7 @@ class PolicyTest extends \Test\TestCase
 
     public function testPassword()
     {
-        $policy = new \OCA\PasswordPolicyEnforcement\Policy;
+        $policy = new \OCA\PasswordPolicyEnforcement\Policy($this->getMock('OCP\IL10N'));
         $policy->setConfig($this->mockConfig);
 
         $this->assertTrue($policy->testPassword('AbCd'), 'Correct password');
