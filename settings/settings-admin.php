@@ -16,7 +16,7 @@ OC_Util::checkAdminUser();
 
 $tpl = new OCP\Template("password_policy", "settings-admin");
 
-$policy = new \OCA\PasswordPolicyEnforcement\Policy;
+$policy = new \OCA\PasswordPolicyEnforcement\Policy(\OCP\Util::getL10N('password_policy'));
 
 $minlength = $policy->getMinLength();
 $mixedcase = $policy->getMixedCase();
