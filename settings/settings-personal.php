@@ -15,7 +15,7 @@
 
 $tpl = new OCP\Template("password_policy", "settings-personal");
 
-$policy = new \OCA\PasswordPolicyEnforcement\Policy;
+$policy = new \OCA\PasswordPolicyEnforcement\Policy(\OCP\Util::getL10N('password_policy'));
 
 $minlength = $policy->getMinLength();
 $mixedcase = $policy->getMixedCase();
