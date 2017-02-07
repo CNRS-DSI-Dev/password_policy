@@ -34,6 +34,7 @@ class Application extends \OCP\AppFramework\App {
 	 * register "preSetPassword" hook
 	 */
 	public function registerHooks() {
-		\OCP\Util::connectHook('\OC\User', 'preSetPassword', 'OCA\PasswordPolicyEnforcement\Hooks', 'preSetPassword');
+		// \OCP\Util::connectHook('OC_User', 'pre_setPassword', 'OCA\PasswordPolicyEnforcement\Hooks\Hooks', 'preSetPassword');
+		$this->getContainer()->query('ServerContainer')->getUserManager()->listen('\OC\User', 'preSetPassword', ['OCA\PasswordPolicyEnforcement\Hooks\Hooks', 'preSetPassword']);
 	}
 }

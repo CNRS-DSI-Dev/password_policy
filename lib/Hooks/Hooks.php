@@ -21,10 +21,10 @@ class Hooks {
      * @return boolean
      */
     public function preSetPassword(\OC\User\User $user, string $password, string $recoverPassword)
+    {
         $policy = new \OCA\PasswordPolicyEnforcement\Policy;
-
         if(!$policy->testPassword($password)) {
-            throw(new Exception("Password does not comply with the Password Policy."));
+            throw(new \Exception("Password does not comply with the Password Policy."));
         }
         else {
             return true;
