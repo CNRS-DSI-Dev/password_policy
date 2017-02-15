@@ -24,7 +24,8 @@ class Hooks {
     {
         $policy = new \OCA\PasswordPolicyEnforcement\Policy;
         if(!$policy->testPassword($password)) {
-            throw(new \Exception("Password does not comply with the Password Policy."));
+            //throw(new \Exception("Password does not comply with the Password Policy."));
+            throw(new \OC\HintException("Password does not comply with the Password Policy.", "Please see password policy."));
         }
         else {
             return true;
