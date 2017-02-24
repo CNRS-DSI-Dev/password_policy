@@ -20,7 +20,7 @@ class Hooks {
      * @param  string        $recoverPassword
      * @return boolean
      */
-    public function preSetPassword(\OC\User\User $user, string $password, string $recoverPassword)
+    public function preSetPassword(\OC\User\User $user, string $password, $recoverPassword = "")
     {
         $policy = new \OCA\PasswordPolicyEnforcement\Policy;
         if(!$policy->testPassword($password)) {

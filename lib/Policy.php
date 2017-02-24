@@ -17,18 +17,14 @@ class Policy
 {
     const AppName = 'password_policy';
 
-    /** @var IL10N */
-    protected $l;
-
     /** @var @var \OCP\Config */
     protected $config = null;
 
     /**
      * @param IL10N $l
      */
-    public function __construct(IL10N $l)
+    public function __construct()
     {
-        $this->l = $l;
         if (is_null($this->config)) {
             $this->setConfig();
         }
